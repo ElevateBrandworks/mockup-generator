@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Embroidery Designer</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fabric.js/4.5.0/fabric.min.js"></script>
+  <style>
+    #designer-container { width: 800px; margin: 0 auto; }
+    #canvas { border: 1px solid #ccc; }
+    .toolbar { margin: 10px 0; }
+  </style>
+</head>
+<body>
+  <div id="designer-container">
+    <h2>Custom Embroidery Designer</h2>
+    <div class="toolbar">
+      <input type="file" id="upload" accept="image/*">
+      <button id="save">Save Design</button>
+    </div>
+    <canvas id="canvas" width="800" height="600"></canvas>
+  </div>
+  <script src="designer.js"></script>
+</body>
+</html>
