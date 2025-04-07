@@ -1,7 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-  import React, { useState, useEffect, useRef } from 'react';
-  import { fabric } from 'fabric';
-
+  
 function App() {
   const [canvas, setCanvas] = useState(null);
   const canvasRef = useRef(null);
