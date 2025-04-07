@@ -4,20 +4,7 @@ import { fabric } from 'fabric';
 function App() {
   const [canvas, setCanvas] = useState(null);
   const canvasRef = useRef(null);
-  const [, setPosition] = useState({ x: 0, y: 0, width: 100, height: 100 });
-
-// Update position when object moves
-useEffect(() => {
-  if (!canvas) return;
-  canvas.on('object:moving', (e) => {
-    setPosition({
-      x: Math.round(e.target.left),
-      y: Math.round(e.target.top),
-      width: Math.round(e.target.width * e.target.scaleX),
-      height: Math.round(e.target.height * e.target.scaleY),
-    });
-  });
-}, [canvas]);
+  const [position, setPosition] = useState({ x: 0, y: 0, width: 100, height: 100 });
 
   // Initialize canvas
   useEffect(() => {
@@ -28,15 +15,23 @@ useEffect(() => {
     });
     setCanvas(newCanvas);
 
-    // Add a sample T-shirt
-    const tshirtImg = new fabric.Image.fromURL(
-      'https://res.cloudinary.com/dwrhiurcg/image/upload/v1744059421/Tee_front_fhqt7h.png', 
-      (img) => {
-        img.scaleToWidth(700);
-        newCanvas.add(img);
-        newCanvas.renderAll();
-      }
-    );
+    // Load a T-shirt template
+    fabric.Image.fromURL('https://example.com/tshirt.png', (img) => {
+      img.scaleToWidth(700);
+      newCanvas.add(img);
+      newCanvas.renderAll();
+    });
+
+    // Track object movement
+    newCanvas.on('object:modified', (e) => {
+      const obj = e.target;
+      setPosition({
+        x: Math.round(obj.left),
+        y: Math.round(obj.top),
+        width: Math.round(obj.width * obj.scaleX),
+        height: Math.round(obj.height * obj.scaleY),
+      });
+    });
 
     return () => newCanvas.dispose();
   }, []);
@@ -63,12 +58,22 @@ useEffect(() => {
   };
 
   return (
-    <div>
+    <div style={{ padding: '20px' }}>
       <h1>Custom Garment Designer</h1>
       <input type="file" accept="image/*" onChange={handleImageUpload} />
+
+      {/* 👇 Add this block for Position/Size Controls 👇 */}
+      <div style={{ margin: '10px 0' }}>
+        <h3>Position & Size</h3>
+        <div>
+          <label>X: <input type="number" value={position.x} readOnly /></label>
+          <label>Y: <input type="number" value={position.y} readOnly /></label>
+          <label>Width: <input type="number" value={position.width} readOnly /></label>
+          <label>Height: <input type="number" value={position.height} readOnly /></label>
+        </div>
+      </div>
+
       <canvas ref={canvasRef} id="design-canvas" />
     </div>
   );
 }
-
-export default App;
