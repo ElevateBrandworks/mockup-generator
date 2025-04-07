@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const canvas = new fabric.Canvas('canvas');
   
   // Load mockup (hosted on Cloudinary)
-  fabric.Image.fromURL('https://res.cloudinary.com/YOUR_ACCOUNT/image/upload/v1/tshirt-mockup.png', (img) => {
+  fabric.Image.fromURL('https://res.cloudinary.com/dwrhiurcg/image/upload/v1744059421/Tee_front_fhqt7h.png', (img) => {
     canvas.setBackgroundImage(img, canvas.renderAll.bind(canvas));
   });
 
