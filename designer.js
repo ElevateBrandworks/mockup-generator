@@ -16,7 +16,7 @@ function App() {
     setCanvas(newCanvas);
 
     // Load a T-shirt template
-    fabric.Image.fromURL('https://example.com/tshirt.png', (img) => {
+    fabric.Image.fromURL('https://res.cloudinary.com/dwrhiurcg/image/upload/v1744059421/Tee_front_fhqt7h.png', (img) => {
       img.scaleToWidth(700);
       newCanvas.add(img);
       newCanvas.renderAll();
